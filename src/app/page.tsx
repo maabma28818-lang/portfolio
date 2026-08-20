@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import Hero from "@/components/Hero";
 import SkillsSection from "@/components/SkillsSection";
+import CertificationsSection from "@/components/CertificationsSection";
 import ProjectGallery from "@/components/ProjectGallery";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
@@ -24,6 +25,9 @@ export default function Home() {
       
       {/* Skills & Sandbox Section */}
       <SkillsSection />
+
+      {/* Verified Certifications */}
+      <CertificationsSection />
       
       {/* Dynamic Project Gallery Section */}
       <div id="projects">

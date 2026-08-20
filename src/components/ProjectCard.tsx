@@ -6,12 +6,19 @@ import type { Project } from "@/data/projects";
 import { useHoverContext } from "@/context/HoverContext";
 import dynamic from "next/dynamic";
 
-const SeraVisualizer = dynamic(() => import("./SeraVisualizer"), { ssr: false });
+const WaveVisualizer = dynamic(() => import("./WaveVisualizer"), { ssr: false });
 
 interface ProjectCardProps {
   project: Project;
   onClick: () => void;
 }
+
+const PROJECT_COLORS: Record<string, { active: string; idle: string; bgClass: string }> = {
+  healthconnect: { active: "#10b981", idle: "#00f2fe", bgClass: "group-hover:from-cyan-500/10 group-hover:to-emerald-500/10" },
+  sera: { active: "#dc143c", idle: "#8a2be2", bgClass: "group-hover:from-violet-500/10 group-hover:to-rose-500/10" },
+  "nazara-mis": { active: "#f59e0b", idle: "#ef4444", bgClass: "group-hover:from-red-500/10 group-hover:to-amber-500/10" },
+  "library-system": { active: "#4f46e5", idle: "#0ea5e9", bgClass: "group-hover:from-sky-500/10 group-hover:to-indigo-500/10" }
+};
 
 export default function ProjectCard({ project, onClick }: ProjectCardProps) {
   const { hoveredSkill } = useHoverContext();
@@ -59,6 +66,7 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
 
   const isHighlighted = hoveredSkill && project.tags.some(tag => tag.toLowerCase().includes(hoveredSkill.toLowerCase()));
   const isDimmed = hoveredSkill && !isHighlighted;
+  const colors = PROJECT_COLORS[project.id] || { active: "#00f2fe", idle: "#8a2be2", bgClass: "group-hover:from-neon-cyan/10 group-hover:to-neon-purple/10" };
 
   return (
     <motion.div
@@ -78,17 +86,17 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
         ${isDimmed ? 'opacity-40 grayscale-[50%]' : 'opacity-100'}
       `}
     >
-      {project.id === "sera" && <SeraVisualizer />}
+      <WaveVisualizer activeColor={colors.active} idleColor={colors.idle} />
 
       {/* Glow effect on hover */}
-      <div className="absolute inset-0 bg-gradient-to-br from-neon-cyan/0 via-transparent to-neon-purple/0 group-hover:from-neon-cyan/10 group-hover:to-neon-purple/10 transition-all duration-500 rounded-3xl pointer-events-none" />
+      <div className={`absolute inset-0 bg-gradient-to-br from-transparent to-transparent ${colors.bgClass} transition-all duration-500 rounded-3xl pointer-events-none`} />
       
-      <div style={{ transform: "translateZ(50px)" }} className="relative z-10">
+      <div style={{ transform: "translateZ(50px)" }} className="relative z-10 pointer-events-none">
         <div className="flex flex-wrap gap-2 mb-4">
           {project.categories.map((cat) => (
             <span
               key={cat}
-              className="px-3 py-1 text-xs font-semibold rounded-full bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/20 uppercase tracking-wider"
+              className="px-3 py-1 text-xs font-semibold rounded-full bg-black/40 text-white/90 border border-white/20 uppercase tracking-wider backdrop-blur-md"
             >
               {cat}
             </span>
@@ -97,28 +105,28 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
         
         <motion.h3 
           layoutId={`title-${project.id}`} 
-          className="text-2xl md:text-3xl font-bold text-white mb-3"
+          className="text-2xl md:text-3xl font-bold text-white mb-3 drop-shadow-md"
         >
           {project.title}
         </motion.h3>
         
-        <p className="text-white/60 line-clamp-3 leading-relaxed">
+        <p className="text-white/80 line-clamp-3 leading-relaxed drop-shadow-md bg-black/20 p-2 rounded-lg backdrop-blur-sm inline-block">
           {project.description}
         </p>
       </div>
 
-      <div style={{ transform: "translateZ(30px)" }} className="relative z-10 mt-6">
+      <div style={{ transform: "translateZ(30px)" }} className="relative z-10 mt-6 pointer-events-none">
         <div className="flex flex-wrap gap-2">
           {project.tags.slice(0, 3).map((tag) => (
             <span
               key={tag}
-              className="px-2 py-1 text-xs font-mono rounded bg-white/5 text-white/50 border border-white/10"
+              className="px-2 py-1 text-xs font-mono rounded bg-black/40 text-white/80 border border-white/10 backdrop-blur-md"
             >
               {tag}
             </span>
           ))}
           {project.tags.length > 3 && (
-            <span className="px-2 py-1 text-xs font-mono rounded bg-white/5 text-white/50 border border-white/10">
+            <span className="px-2 py-1 text-xs font-mono rounded bg-black/40 text-white/80 border border-white/10 backdrop-blur-md">
               +{project.tags.length - 3} more
             </span>
           )}
@@ -126,7 +134,7 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
       </div>
       
       {/* Decorative corner accent */}
-      <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-neon-purple/20 blur-2xl rounded-full group-hover:bg-neon-cyan/30 transition-colors duration-500 pointer-events-none" />
+      <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-white/5 blur-2xl rounded-full transition-colors duration-500 pointer-events-none" />
     </motion.div>
   );
 }

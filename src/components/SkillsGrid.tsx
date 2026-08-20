@@ -5,24 +5,20 @@ import { useHoverContext } from "@/context/HoverContext";
 
 const categories = [
   {
-    title: "Languages & Core",
-    skills: ["Python", "Java", "JavaScript", "SQL", "ES6+"],
+    title: "Full Stack & UI/UX",
+    skills: ["Python (Flask, Django)", "Java (Full Stack/JDBC)", "HTML5/CSS3", "JavaScript (ES6+)", "Figma", "Draw.io", "Responsive Design", "Design Systems"],
   },
   {
-    title: "Frameworks & Backend",
-    skills: ["Flask", "Django", "Next.js", "Node.js", "REST APIs"],
+    title: "Cybersecurity",
+    skills: ["Penetration Testing", "Kali Linux", "Web & Cloud Security", "Incident Response", "Network Footprinting", "OWASP"],
   },
   {
-    title: "Databases & Cloud",
-    skills: ["MySQL", "MongoDB", "SQLite", "SQLAlchemy", "Azure AI"],
+    title: "Systems & Architecture",
+    skills: ["MySQL", "MongoDB", "SQLite", "SQLAlchemy ORM", "OOAD", "OS Administration (Ubuntu, CentOS)", "Cloud Computing"],
   },
   {
-    title: "UI/UX & Design",
-    skills: ["Figma", "Responsive Design", "Design Systems", "Motion Design"],
-  },
-  {
-    title: "Security & Tools",
-    skills: ["Git", "Kali Linux", "VS Code", "Penetration Testing", "OWASP"],
+    title: "Certifications",
+    skills: ["IT Specialist - HTML & CSS (Certiport)", "Azure AI Services (Microsoft)"],
   },
 ];
 
