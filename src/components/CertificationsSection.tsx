@@ -2,10 +2,10 @@
 
 import { motion } from "framer-motion";
 import { Award, Calendar, ShieldCheck, CheckCircle2, ExternalLink, BadgeCheck } from "lucide-react";
-import { useCMS } from "@/context/CMSContext";
+import portfolioData from "@/data/portfolio-data.json";
 
 export default function CertificationsSection() {
-  const { certifications } = useCMS();
+  const certifications = portfolioData.certifications;
 
 
   return (

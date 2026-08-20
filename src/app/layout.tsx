@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   }
 };
 
-import { CMSProvider } from "@/context/CMSContext";
+
 
 export default function RootLayout({
   children,
@@ -38,15 +38,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body className="antialiased min-h-screen bg-[var(--color-canvas-dark)] text-foreground selection:bg-neon-cyan/30">
-        <CMSProvider>
-          <SmoothScroll>
-            <HoverProvider>
-              <ScrollProgress />
-              <CustomCursor />
-              {children}
-            </HoverProvider>
-          </SmoothScroll>
-        </CMSProvider>
+        <SmoothScroll>
+          <HoverProvider>
+            <ScrollProgress />
+            <CustomCursor />
+            {children}
+          </HoverProvider>
+        </SmoothScroll>
       </body>
     </html>
   );

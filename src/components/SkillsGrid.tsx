@@ -2,11 +2,11 @@
 
 import { motion } from "framer-motion";
 import { useHoverContext } from "@/context/HoverContext";
-import { useCMS } from "@/context/CMSContext";
+import portfolioData from "@/data/portfolio-data.json";
 
 export default function SkillsGrid() {
   const { setHoveredSkill } = useHoverContext();
-  const { skills } = useCMS();
+  const skills = portfolioData.skills;
 
   // Categorize skills on the fly for the UI
   const categories = [

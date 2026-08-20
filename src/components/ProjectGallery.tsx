@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useCMS } from "@/context/CMSContext";
+import portfolioData from "@/data/portfolio-data.json";
 import ProjectCard from "./ProjectCard";
 import ProjectModal from "./ProjectModal";
 import type { Project } from "@/data/projects";
@@ -10,7 +10,7 @@ import type { Project } from "@/data/projects";
 const FILTERS = ["All", "AI/ML", "Enterprise", "Full Stack"];
 
 export default function ProjectGallery() {
-  const { projects } = useCMS();
+  const projects = portfolioData.projects;
   const [activeFilter, setActiveFilter] = useState("All");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 

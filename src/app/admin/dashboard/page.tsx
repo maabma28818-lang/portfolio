@@ -2,19 +2,20 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useCMS, Certification } from "@/context/CMSContext";
-import type { Project } from "@/data/projects";
+import { Loader2 } from "lucide-react";
+import portfolioData from "@/data/portfolio-data.json";
 import { LogOut, Save, Plus, Trash2, ShieldCheck, LayoutDashboard } from "lucide-react";
 
 export default function AdminDashboard() {
   const router = useRouter();
-  const { skills, setSkills, projects, setProjects, certifications, setCertifications } = useCMS();
   const [activeTab, setActiveTab] = useState<"skills" | "certifications" | "projects">("skills");
+  const [isSaving, setIsSaving] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
 
   // Local state for editing
-  const [localSkills, setLocalSkills] = useState(skills);
-  const [localCerts, setLocalCerts] = useState(certifications);
-  const [localProjects, setLocalProjects] = useState(projects);
+  const [localSkills, setLocalSkills] = useState(portfolioData.skills);
+  const [localCerts, setLocalCerts] = useState(portfolioData.certifications);
+  const [localProjects, setLocalProjects] = useState(portfolioData.projects);
 
   useEffect(() => {
     // Route Guard
@@ -29,9 +30,34 @@ export default function AdminDashboard() {
     router.replace("/");
   };
 
-  const saveSkills = () => setSkills(localSkills);
-  const saveCerts = () => setCertifications(localCerts);
-  const saveProjects = () => setProjects(localProjects);
+  const handleSave = async () => {
+    setIsSaving(true);
+    setToastMessage("");
+    try {
+      const data = {
+        skills: localSkills,
+        certifications: localCerts,
+        projects: localProjects,
+      };
+
+      const res = await fetch("/api/admin/save", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) throw new Error("Failed to save data");
+
+      setToastMessage("Changes pushed to repository! Vercel is syncing your live site globally.");
+      setTimeout(() => setToastMessage(""), 5000);
+    } catch (error) {
+      console.error(error);
+      setToastMessage("Error pushing changes. Check console.");
+      setTimeout(() => setToastMessage(""), 5000);
+    } finally {
+      setIsSaving(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#050505] text-white p-4 md:p-8 font-sans selection:bg-cyan-500/30 pt-[var(--header-height)]">
@@ -57,6 +83,13 @@ export default function AdminDashboard() {
         </button>
       </div>
 
+      {toastMessage && (
+        <div className="fixed bottom-4 right-4 bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 px-4 py-3 rounded-lg shadow-lg z-50 flex items-center gap-3">
+          <ShieldCheck className="w-5 h-5" />
+          <p className="text-sm font-medium">{toastMessage}</p>
+        </div>
+      )}
+
       {/* Tabs */}
       <div className="max-w-6xl mx-auto flex gap-2 mb-8 overflow-x-auto pb-2 scrollbar-hide">
         {(["skills", "certifications", "projects"] as const).map(tab => (
@@ -79,8 +112,8 @@ export default function AdminDashboard() {
           <div className="glass border border-white/10 rounded-2xl p-6 shadow-2xl bg-[#0d0d18]/80 backdrop-blur-md">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-xl font-bold">Skills Matrix</h2>
-              <button onClick={saveSkills} className="px-4 py-2 bg-emerald-500 text-black font-semibold rounded-lg hover:bg-emerald-400 flex items-center gap-2 text-sm">
-                <Save className="w-4 h-4" /> Save Skills
+              <button onClick={handleSave} disabled={isSaving} className="px-4 py-2 bg-emerald-500 text-black font-semibold rounded-lg hover:bg-emerald-400 flex items-center gap-2 text-sm disabled:opacity-50">
+                {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />} Save Changes
               </button>
             </div>
             
@@ -119,8 +152,8 @@ export default function AdminDashboard() {
           <div className="glass border border-white/10 rounded-2xl p-6 shadow-2xl bg-[#0d0d18]/80 backdrop-blur-md space-y-6">
             <div className="flex justify-between items-center">
               <h2 className="text-xl font-bold">Certifications Manager</h2>
-              <button onClick={saveCerts} className="px-4 py-2 bg-emerald-500 text-black font-semibold rounded-lg hover:bg-emerald-400 flex items-center gap-2 text-sm">
-                <Save className="w-4 h-4" /> Save Certifications
+              <button onClick={handleSave} disabled={isSaving} className="px-4 py-2 bg-emerald-500 text-black font-semibold rounded-lg hover:bg-emerald-400 flex items-center gap-2 text-sm disabled:opacity-50">
+                {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />} Save Changes
               </button>
             </div>
 
@@ -186,8 +219,8 @@ export default function AdminDashboard() {
           <div className="glass border border-white/10 rounded-2xl p-6 shadow-2xl bg-[#0d0d18]/80 backdrop-blur-md space-y-6">
              <div className="flex justify-between items-center">
               <h2 className="text-xl font-bold">Projects Editor</h2>
-              <button onClick={saveProjects} className="px-4 py-2 bg-emerald-500 text-black font-semibold rounded-lg hover:bg-emerald-400 flex items-center gap-2 text-sm">
-                <Save className="w-4 h-4" /> Save Projects
+              <button onClick={handleSave} disabled={isSaving} className="px-4 py-2 bg-emerald-500 text-black font-semibold rounded-lg hover:bg-emerald-400 flex items-center gap-2 text-sm disabled:opacity-50">
+                {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />} Save Changes
               </button>
             </div>
 
