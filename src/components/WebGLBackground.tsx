@@ -70,7 +70,7 @@ function PrismCluster() {
 
 function StarParticles() {
   const ref = useRef<THREE.Points>(null);
-  const particleCount = 1000;
+  const particleCount = 200;
 
   // Generate random positions and phases for organic movement
   const [positions, phases] = useMemo(() => {
@@ -98,10 +98,6 @@ function StarParticles() {
     // Simulate turbulence by slightly moving the entire system
     ref.current.rotation.y = time * 0.1;
     ref.current.rotation.z = time * 0.05;
-
-    // Organic drift logic could be implemented here on individual vertices 
-    // using a custom shader material for ultimate performance, but simple
-    // group rotation combined with PointsMaterial is very cheap.
   });
 
   return (
@@ -128,8 +124,7 @@ export default function WebGLBackground() {
       
       <Canvas
         camera={{ position: [0, 0, 8], fov: 45 }}
-        dpr={[1, 2]}
-        frameloop="demand" // Auto-pauses when no state changes (note: float/useFrame might force render, so this helps when tab is inactive)
+        dpr={[1, 1.5]}
         performance={{ min: 0.5 }} // Allows automatic resolution downscaling
         gl={{ alpha: true, antialias: false }} // antialias false saves performance, we rely on dpr
       >

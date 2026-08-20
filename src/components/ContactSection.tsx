@@ -146,7 +146,7 @@ export default function ContactSection() {
         <div className="relative">
           <div className="absolute inset-0 bg-gradient-to-br from-neon-purple/20 to-neon-cyan/20 blur-3xl -z-10 rounded-full opacity-50" />
           
-          <div className="glass rounded-3xl p-8 border border-white/10 shadow-2xl relative overflow-hidden bg-black/40 backdrop-blur-2xl">
+          <div className="glass rounded-3xl p-8 border border-white/10 shadow-2xl relative overflow-hidden bg-[#0d0d18]/80 backdrop-blur-md">
             <AnimatePresence>
               {isSuccess && (
                 <motion.div

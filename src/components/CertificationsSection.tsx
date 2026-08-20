@@ -2,46 +2,11 @@
 
 import { motion } from "framer-motion";
 import { Award, Calendar, ShieldCheck, CheckCircle2, ExternalLink, BadgeCheck } from "lucide-react";
+import { useCMS } from "@/context/CMSContext";
 
 export default function CertificationsSection() {
-  const certifications = [
-    {
-      id: "cert-1",
-      title: "IT Specialist — HTML and CSS",
-      issuer: "Certiport (A Pearson VUE Business)",
-      date: "May 2025",
-      credentialId: "ovW3-uSrs",
-      skills: ["Modern Semantic HTML5", "Responsive CSS3", "Grid/Flexbox Systems", "Web Accessibility"],
-      link: "#"
-    },
-    {
-      id: "cert-2",
-      title: "Concepts and Azure AI Services for Automation and Collaboration",
-      issuer: "Microsoft (Code Without Barriers)",
-      date: "Feb / Mar 2025",
-      credentialId: "2502007375",
-      skills: ["Azure AI Services", "Cognitive APIs", "Cloud Automation", "AI Workflow Integration"],
-      link: "#"
-    },
-    {
-      id: "cert-3",
-      title: "Cybersecurity & Penetration Testing Fundamentals",
-      issuer: "Maharashtra State Skills University / Academic Training",
-      date: "2025",
-      credentialId: "Internal Academic Credential",
-      skills: ["Kali Linux", "Nmap", "Vulnerability Assessment", "Network Footprinting", "Incident Response"],
-      link: "#"
-    },
-    {
-      id: "cert-4",
-      title: "Object-Oriented Software Architecture & Java Systems",
-      issuer: "Academic Project Certification / Department of IT",
-      date: "2024–2025",
-      credentialId: "Academic Verification",
-      skills: ["Java Full Stack", "JDBC", "Enterprise Database Normalization", "Systems Design"],
-      link: "#"
-    }
-  ];
+  const { certifications } = useCMS();
+
 
   return (
     <section className="relative w-full max-w-7xl mx-auto px-4 py-24">

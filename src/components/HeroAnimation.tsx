@@ -118,8 +118,8 @@ export default function HeroAnimation({ typedText }: { typedText: string }) {
 
         {/* Developer (Seen from Behind) */}
         <motion.g
-          animate={{ y: [0, -4, 0] }}
-          transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+          animate={{ y: [0, -3, 0] }}
+          transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
         >
           {/* Gaming Chair Back */}
           <path d="M 230 300 L 370 300 L 400 550 L 200 550 Z" fill="#0f172a" stroke="#00f2fe" strokeWidth="2" />
@@ -129,31 +129,11 @@ export default function HeroAnimation({ typedText }: { typedText: string }) {
           <path d="M 260 280 L 340 280" fill="none" stroke="#00f2fe" strokeWidth="6" strokeLinecap="round" opacity="0.8" />
           
           {/* Developer Shoulders & Hoodie */}
-          <path d="M 180 340 Q 300 280 420 340 L 440 550 L 160 550 Z" fill="url(#hoodieGlow)" />
+          <path d="M 180 380 Q 300 280 420 380 L 430 550 L 170 550 Z" fill="url(#hoodieGlow)" />
           
           {/* Head (Hoodie Back) */}
           <ellipse cx="300" cy="250" rx="60" ry="65" fill="#0f172a" />
           <ellipse cx="300" cy="245" rx="50" ry="55" fill="#1a1a2e" />
-          
-          {/* Left Arm/Sleeve */}
-          <motion.g
-            animate={{ rotate: [-1, 2, -1], x: [0, 3, 0], y: [0, 2, 0] }}
-            transition={{ repeat: Infinity, duration: 0.2, ease: "easeInOut" }}
-            style={{ transformOrigin: "180px 340px" }}
-          >
-            <path d="M 180 340 Q 150 400 220 400" fill="none" stroke="#16213e" strokeWidth="40" strokeLinecap="round" />
-            <circle cx="230" cy="395" r="18" fill="#fca5a5" />
-          </motion.g>
-
-          {/* Right Arm/Sleeve */}
-          <motion.g
-            animate={{ rotate: [1, -2, 1], x: [0, -3, 0], y: [0, 2, 0] }}
-            transition={{ repeat: Infinity, duration: 0.18, ease: "easeInOut" }}
-            style={{ transformOrigin: "420px 340px" }}
-          >
-            <path d="M 420 340 Q 450 400 380 400" fill="none" stroke="#16213e" strokeWidth="40" strokeLinecap="round" />
-            <circle cx="370" cy="395" r="18" fill="#fca5a5" />
-          </motion.g>
           
           {/* Headphones Band */}
           <path d="M 235 240 A 65 65 0 0 1 365 240" fill="none" stroke="#00f2fe" strokeWidth="8" strokeLinecap="round" />

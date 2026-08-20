@@ -43,6 +43,8 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
   const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["15deg", "-15deg"]);
   const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-15deg", "15deg"]);
 
+  const [isHovered, setIsHovered] = useState(false);
+
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (isMobile || !cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
@@ -59,7 +61,10 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
     y.set(yPct);
   };
 
+  const handleMouseEnter = () => setIsHovered(true);
+
   const handleMouseLeave = () => {
+    setIsHovered(false);
     x.set(0);
     y.set(0);
   };
@@ -72,6 +77,7 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
     <motion.div
       layoutId={`project-${project.id}`}
       ref={cardRef}
+      onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       onClick={onClick}
@@ -86,7 +92,7 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
         ${isDimmed ? 'opacity-40 grayscale-[50%]' : 'opacity-100'}
       `}
     >
-      <WaveVisualizer activeColor={colors.active} idleColor={colors.idle} />
+      {isHovered && <WaveVisualizer activeColor={colors.active} idleColor={colors.idle} />}
 
       {/* Glow effect on hover */}
       <div className={`absolute inset-0 bg-gradient-to-br from-transparent to-transparent ${colors.bgClass} transition-all duration-500 rounded-3xl pointer-events-none`} />

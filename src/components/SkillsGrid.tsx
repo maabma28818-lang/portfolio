@@ -2,28 +2,35 @@
 
 import { motion } from "framer-motion";
 import { useHoverContext } from "@/context/HoverContext";
-
-const categories = [
-  {
-    title: "Full Stack & UI/UX",
-    skills: ["Python (Flask, Django)", "Java (Full Stack/JDBC)", "HTML5/CSS3", "JavaScript (ES6+)", "Figma", "Draw.io", "Responsive Design", "Design Systems"],
-  },
-  {
-    title: "Cybersecurity",
-    skills: ["Penetration Testing", "Kali Linux", "Web & Cloud Security", "Incident Response", "Network Footprinting", "OWASP"],
-  },
-  {
-    title: "Systems & Architecture",
-    skills: ["MySQL", "MongoDB", "SQLite", "SQLAlchemy ORM", "OOAD", "OS Administration (Ubuntu, CentOS)", "Cloud Computing"],
-  },
-  {
-    title: "Certifications",
-    skills: ["IT Specialist - HTML & CSS (Certiport)", "Azure AI Services (Microsoft)"],
-  },
-];
+import { useCMS } from "@/context/CMSContext";
 
 export default function SkillsGrid() {
   const { setHoveredSkill } = useHoverContext();
+  const { skills } = useCMS();
+
+  // Categorize skills on the fly for the UI
+  const categories = [
+    {
+      title: "Full Stack & UI/UX",
+      skills: skills.filter(s => s.toLowerCase().includes("react") || s.toLowerCase().includes("tailwind") || s.toLowerCase().includes("css") || s.toLowerCase().includes("html") || s.toLowerCase().includes("ui") || s.toLowerCase().includes("ux") || s.toLowerCase().includes("front") || s.toLowerCase().includes("javascript") || s.toLowerCase().includes("figma"))
+    },
+    {
+      title: "Cybersecurity",
+      skills: skills.filter(s => s.toLowerCase().includes("kali") || s.toLowerCase().includes("vulnerability") || s.toLowerCase().includes("nmap") || s.toLowerCase().includes("burp") || s.toLowerCase().includes("security") || s.toLowerCase().includes("penetration") || s.toLowerCase().includes("incident"))
+    },
+    {
+      title: "Systems & Architecture",
+      skills: skills.filter(s => s.toLowerCase().includes("architecture") || s.toLowerCase().includes("object-oriented") || s.toLowerCase().includes("api") || s.toLowerCase().includes("system") || s.toLowerCase().includes("node") || s.toLowerCase().includes("database") || s.toLowerCase().includes("java") || s.toLowerCase().includes("sql") || s.toLowerCase().includes("mongo"))
+    }
+  ].filter(c => c.skills.length > 0);
+
+  // Fallback if no matching skills found for a category
+  if (categories.length === 0) {
+    categories.push({
+      title: "All Skills",
+      skills: skills
+    });
+  }
 
   return (
     <div className="w-full h-full flex flex-col justify-center space-y-8">

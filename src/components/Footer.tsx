@@ -1,7 +1,8 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowUp } from "lucide-react";
+import { ArrowUp, Lock } from "lucide-react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Footer() {
@@ -35,7 +36,10 @@ export default function Footer() {
         
         {/* Left Side: Copyright */}
         <div className="flex flex-col items-center md:items-start">
-          <span className="text-white/80 font-medium text-lg">Mohammed Abdullah Mahmood</span>
+          <Link href="/admin/login" className="group flex items-center gap-2">
+            <span className="text-white/80 font-medium text-lg hover:text-cyan-400 transition-colors">Mohammed Abdullah Mahmood</span>
+            <Lock className="w-3 h-3 text-transparent group-hover:text-cyan-400/50 transition-colors" />
+          </Link>
           <span className="text-white/40 text-sm mt-1">© {new Date().getFullYear()} All rights reserved.</span>
         </div>
 

@@ -115,7 +115,7 @@ export default function TerminalSandbox() {
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="w-full rounded-xl overflow-hidden glass border border-white/10 shadow-2xl flex flex-col bg-[#050505]/90 backdrop-blur-2xl h-auto md:h-[500px]"
+      className="w-full rounded-xl overflow-hidden glass border border-white/10 shadow-2xl flex flex-col bg-[#0d0d18]/80 backdrop-blur-md h-auto md:h-[500px]"
       onClick={() => { if (!isMobile) inputRef.current?.focus(); }}
     >
       {/* Terminal Header */}
