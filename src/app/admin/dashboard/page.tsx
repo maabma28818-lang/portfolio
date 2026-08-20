@@ -154,6 +154,20 @@ export default function AdminDashboard() {
                         placeholder="Date"
                       />
                     </div>
+                    <div className="flex gap-4">
+                      <input 
+                        value={cert.credentialId} 
+                        onChange={(e) => { const c = [...localCerts]; c[i].credentialId = e.target.value; setLocalCerts(c); }}
+                        className="flex-1 bg-transparent border-b border-white/10 focus:border-cyan-400 outline-none text-sm text-white/70"
+                        placeholder="Credential ID"
+                      />
+                      <input 
+                        value={cert.skills.join(", ")} 
+                        onChange={(e) => { const c = [...localCerts]; c[i].skills = e.target.value.split(",").map(s => s.trim()).filter(Boolean); setLocalCerts(c); }}
+                        className="flex-[2] bg-transparent border-b border-white/10 focus:border-cyan-400 outline-none text-sm text-white/70"
+                        placeholder="Skills (comma separated)"
+                      />
+                    </div>
                   </div>
                 </div>
               ))}
@@ -198,7 +212,13 @@ export default function AdminDashboard() {
                     className="w-full bg-black/20 border border-white/10 rounded-lg p-2 focus:border-cyan-400 outline-none text-sm text-white/70 min-h-[80px]"
                     placeholder="Project Description"
                   />
-                  <div className="text-xs text-white/40">Edit tags directly in the data structure for advanced schema validation.</div>
+                  <input 
+                    value={project.tags?.join(", ") || ""} 
+                    onChange={(e) => { const p = [...localProjects]; p[i].tags = e.target.value.split(",").map(s => s.trim()).filter(Boolean); setLocalProjects(p); }}
+                    className="w-full bg-transparent border-b border-white/10 focus:border-cyan-400 outline-none text-sm text-white/70 mt-1 pb-1"
+                    placeholder="Technologies Used (comma separated, e.g. React, Next.js, Tailwind)"
+                  />
+                  <div className="text-xs text-white/40 mt-1">Edit categories directly in the data structure for advanced schema validation.</div>
                 </div>
               ))}
             </div>
