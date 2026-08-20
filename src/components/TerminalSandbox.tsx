@@ -166,7 +166,6 @@ export default function TerminalSandbox() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               className="flex-1 bg-transparent outline-none text-white font-mono"
-              autoFocus
               spellCheck="false"
               autoComplete="off"
             />

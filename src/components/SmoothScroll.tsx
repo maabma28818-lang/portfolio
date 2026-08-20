@@ -19,6 +19,8 @@ export default function SmoothScroll({
       touchMultiplier: 2,
     });
 
+    window.scrollTo(0, 0);
+
     function raf(time: number) {
       lenis.raf(time);
       requestAnimationFrame(raf);

@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import dynamic from "next/dynamic";
 import Hero from "@/components/Hero";
 import SkillsSection from "@/components/SkillsSection";
@@ -18,6 +19,11 @@ const WebGLBackground = dynamic(() => import("@/components/WebGLBackground"), {
 });
 
 export default function Home() {
+  useEffect(() => {
+    window.history.scrollRestoration = 'manual';
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <main className="relative w-full flex flex-col items-center overflow-x-hidden min-h-screen pt-[var(--header-height)]">
       <WebGLBackground />
